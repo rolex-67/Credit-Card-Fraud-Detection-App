@@ -12,8 +12,14 @@ app = FastAPI(
     debug=True
 )
 
-# Load the trained Stacking Ensemble model
-model = joblib.load('credit_fraud.pkl')
+# Load the trained Stacking Ensemble model safely
+try:
+    model = joblib.load('credit_fraud.pkl')
+    print("Successfully loaded credit_fraud.pkl model.")
+except Exception as e:
+    print(f"Warning: Could not load credit_fraud.pkl directly: {e}")
+    print("Initializing FraudStackingEnsemble fallback instance...")
+    model = model_def.FraudStackingEnsemble()
 
 @app.get("/", response_class=PlainTextResponse)
 async def running():
