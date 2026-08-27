@@ -1,0 +1,26 @@
+# Python virtual environments
+venv/
+env/
+ENV/
+.env
+
+# Python byte-code / cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Large Datasets (Exceeds GitHub 100MB limit)
+*.csv
+*.zip
+PS_*.csv
+
+# Sensitive Credentials / API keys
+kaggle.json
+.kaggle/
+
+# OS / IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
