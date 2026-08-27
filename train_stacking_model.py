@@ -54,10 +54,13 @@ def train_and_save():
     print("========================================================\n", flush=True)
 
     # Save to credit_fraud.pkl
-    out_paths = ["credit_fraud.pkl", os.path.join("backend", "credit_fraud.pkl")]
+    out_paths = ["credit_fraud.pkl"]
+    if os.path.exists("backend"):
+        out_paths.append(os.path.join("backend", "credit_fraud.pkl"))
     for p in out_paths:
         joblib.dump(model, p, compress=3)
         print(f"Saved new stacked model to: {p}", flush=True)
+
 
     # Verification on sample fraud case
     test_sample = np.array([[1, 4, 181.0, 181.0, 0.0, 0.0, 0.0, 0]], dtype=np.float64)
