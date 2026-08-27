@@ -201,10 +201,16 @@ if analyze_btn:
             "newbalancedest": float(newbalancedest),
             "isflaggedfraud": float(isflaggedfraud)
         }
-        # Dynamic API Endpoint (supports Render URL via environment variable or fallback)
+        # Dynamic API Endpoint (supports Render URL via st.secrets, env, or live default)
         import os
-        api_base = os.getenv("API_URL", "http://127.0.0.1:8000").rstrip("/")
+        api_base = os.getenv("API_URL")
+        if not api_base and "API_URL" in st.secrets:
+            api_base = st.secrets["API_URL"]
+        if not api_base:
+            api_base = "https://credit-card-fraud-detection-app-twyv.onrender.com"
+        api_base = api_base.rstrip("/")
         predict_url = f"{api_base}/predict"
+
 
         with st.spinner("Executing XGBoost + LightGBM + Logistic Regression Stacking Pipeline..."):
             try:
